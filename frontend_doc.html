@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BLOODLINK — Frontend Architecture & UI/UX Specification</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 15mm 15mm 15mm 15mm;
+      @bottom-right {
+        content: counter(page);
+      }
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.55;
+      font-size: 11pt;
+      background: #ffffff;
+    }
+
+    .cover {
+      page-break-after: always;
+      padding-top: 60px;
+      text-align: left;
+    }
+
+    .badge-doc {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #fee2e2;
+      color: #b91c1c;
+      font-size: 9pt;
+      font-weight: 700;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    h1.title {
+      font-size: 28pt;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    h1.title span {
+      color: #dc2626;
+    }
+
+    .subtitle {
+      font-size: 13pt;
+      color: #64748b;
+      margin-bottom: 35px;
+      max-width: 600px;
+    }
+
+    .meta-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      font-size: 9.5pt;
+    }
+
+    .meta-box div strong {
+      color: #0f172a;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .meta-box div span {
+      color: #475569;
+    }
+
+    .disclaimer-banner {
+      background: #fff1f2;
+      border-left: 4px solid #e11d48;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-top: 30px;
+      font-size: 9pt;
+      color: #9f1239;
+    }
+
+    h2 {
+      font-size: 15pt;
+      font-weight: 800;
+      color: #0f172a;
+      border-bottom: 2px solid #fee2e2;
+      padding-bottom: 6px;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #dc2626;
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: #334155;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 12px;
+      color: #334155;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 9pt;
+    }
+
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 8pt;
+    }
+
+    .pill-red { background: #fee2e2; color: #b91c1c; }
+    .pill-green { background: #dcfce7; color: #15803d; }
+    .pill-amber { background: #fef3c7; color: #92400e; }
+
+    code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      background: #f1f5f9;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 8.5pt;
+      color: #b91c1c;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 8.5pt;
+      overflow-x: auto;
+      margin: 10px 0 14px;
+      line-height: 1.45;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+    }
+
+    .page-break {
+      page-break-after: always;
+    }
+
+    .card {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: #ffffff;
+    }
+
+    .footer-note {
+      margin-top: 30px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      font-size: 8pt;
+      color: #94a3b8;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover">
+    <div class="badge-doc">Official Technical Documentation</div>
+    <h1 class="title">BLOOD<span>LINK</span></h1>
+    <div class="subtitle">Frontend Application Architecture, UI/UX System &amp; Implementation Specification</div>
+    
+    <p>A comprehensive engineering guide for the client-side single-page application (SPA), interactive mapping systems, AI message parsing modules, and blood bank inventory portals.</p>
+
+    <div class="meta-box">
+      <div>
+        <strong>Project Name:</strong>
+        <span>BLOODLINK Frontend</span>
+      </div>
+      <div>
+        <strong>Target Region:</strong>
+        <span>Ballari District &amp; Regional Hub</span>
+      </div>
+      <div>
+        <strong>Tech Stack:</strong>
+        <span>Tailwind CSS, ES6+ Modules, Leaflet.js, Gemini API</span>
+      </div>
+      <div>
+        <strong>Release Status:</strong>
+        <span>Operational Prototype (v1.0.0)</span>
+      </div>
+      <div>
+        <strong>Directory Location:</strong>
+        <span><code>BLOODLINK/frontend/</code></span>
+      </div>
+      <div>
+        <strong>Date &amp; Version:</strong>
+        <span>November 14, 2026 &bull; Build 102</span>
+      </div>
+    </div>
+
+    <div class="disclaimer-banner">
+      <strong>⚠️ Operational &amp; Clinical Notice:</strong> BLOODLINK is a voluntary connection and inventory information portal designed for emergency assistance coordination. It is an operational evaluation prototype and does not certify medical eligibility, biological cross-match compatibility, or replace licensed blood bank personnel.
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <h2>1. Executive Summary &amp; Architecture</h2>
+  <p>The <strong>BLOODLINK</strong> frontend is engineered as a zero-dependency, mobile-first responsive web client designed for maximum accessibility during medical emergencies. It can be run directly from any modern web browser or built using modern bundlers such as Vite.</p>
+
+  <h3>Key Architectural Principles</h3>
+  <ul>
+    <li><strong>Zero Barrier Execution:</strong> Operates directly via standard modern browser features without mandatory local Node.js compilation.</li>
+    <li><strong>Dual-Mode Data Layer:</strong> The API client automatically queries the live Flask backend (<code>http://127.0.0.1:5000</code>), while maintaining an in-memory &amp; local-storage fallback with the official Ballari snapshot data when offline.</li>
+    <li><strong>Emergency-First Visual Hierarchy:</strong> High-contrast crimson accents (<code>#DC2626</code>), pulsing status beacons, and instant 1-click dispatch workflows.</li>
+    <li><strong>Privacy Safeguards:</strong> Mandatory donor phone number masking and strict consent-gated directory visibility.</li>
+  </ul>
+
+  <div class="card">
+    <h3 style="margin-top:0;">File Structure of the Frontend</h3>
+    <pre><code>BLOODLINK/frontend/
+├── index.html              # Main single-page application entry point
+├── package.json            # Vite/Node package metadata & deployment scripts
+├── README.md               # Quickstart and GitHub deployment instructions
+├── css/
+│   └── style.css           # Custom theme tokens, badges, animations
+└── js/
+    ├── app.js              # Application router, UI controller, event bindings
+    ├── api.js              # Unified API client (Flask integration + local fallback)
+    ├── components/
+    │   └── map.js          # Leaflet.js interactive mapping & coordinate picker
+    └── data/
+        └── mock-data.js    # Pre-loaded Ballari hospital & blood bank dataset</code></pre>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 2 -->
+  <h2>2. User Interface Views &amp; Workflows</h2>
+
+  <h3>A. Home &amp; Emergency Dashboard (<code>#home</code>)</h3>
+  <p>The landing view provides real-time situational awareness for emergency requesters and voluntary donors:</p>
+  <ul>
+    <li><strong>Network Status Counters:</strong> Displays total reported blood units available, active emergency requests, and verified voluntary donors.</li>
+    <li><strong>Emergency Action Banner:</strong> Immediate high-visibility call-to-actions to either initiate an emergency request or search the blood bank network.</li>
+    <li><strong>Demo Control &amp; Reset:</strong> One-click safety reset to restore standard Ballari reference data during testing or demonstrations.</li>
+  </ul>
+
+  <h3>B. Blood Bank Directory &amp; Interactive Map (<code>#banks</code>)</h3>
+  <p>Provides healthcare workers and citizens with searchable directory access across Ballari district facilities:</p>
+  <ul>
+    <li><strong>Facilities Included:</strong> VIMS District Hospital, Indian Red Cross Society, Swamy Vivekananda Voluntary Blood Centre, and Jindal Sanjeevani Multi-Speciality Hospital.</li>
+    <li><strong>Filter Controls:</strong> Instant filtering by City/Town and Blood Group (<code>A+</code>, <code>A-</code>, <code>B+</code>, <code>B-</code>, <code>AB+</code>, <code>AB-</code>, <code>O+</code>, <code>O-</code>).</li>
+    <li><strong>Leaflet Map Integration:</strong> Interactive map markers bound to facility coordinates. Clicking a marker reveals the contact phone number and live blood unit counts.</li>
+    <li><strong>Stock Availability Pills:</strong> Color-coded inventory indicators:
+      <span class="pill pill-green">Available (>5)</span>
+      <span class="pill pill-amber">Moderate (1-4)</span>
+      <span class="pill pill-red">Critical (0)</span>
+    </li>
+  </ul>
+
+  <h3>C. Emergency Blood Request Wizard (<code>#emergency-request</code>)</h3>
+  <p>The primary life-saving workflow of the application:</p>
+  <ol>
+    <li><strong>Gemini AI Message Extractor:</strong> Requesters can paste unformatted WhatsApp/SMS forwarded messages. The assistant extracts patient location, blood group, required units, and urgency.</li>
+    <li><strong>Structured Request Form:</strong> Captures Patient Name, Required Blood Group, Units Needed (1–10), Urgency Level (Critical, Urgent, Standard), Hospital Name, and Verified Attendant Contact.</li>
+    <li><strong>Geolocation Pin Picker:</strong> An embedded Leaflet map allows requesters to tap the exact hospital location to generate coordinates for donor routing.</li>
+    <li><strong>Dispatch Gate:</strong> Dispatches alerts to matching registered donors and generates referral action links.</li>
+  </ol>
+
+  <h3>D. Voluntary Donor Directory (<code>#donors</code>)</h3>
+  <p>Enables safe community donor search while safeguarding donor privacy:</p>
+  <ul>
+    <li>Lists verified donors who have provided explicit consent for directory visibility.</li>
+    <li><strong>Phone Number Masking:</strong> Sensitive phone numbers are masked (e.g., <code>+91 9845X XXXXX</code>) to prevent scraping and harassment.</li>
+  </ul>
+
+  <h3>E. Blood Bank Representative Portal (<code>#bank-portal</code>)</h3>
+  <p>A lightweight operational interface for authorized blood bank staff:</p>
+  <ul>
+    <li>Select facility and view live inventory breakdown across all 8 blood groups.</li>
+    <li>Direct unit adjustment buttons (<code>+</code> and <code>-</code>) with immediate state synchronization.</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 3 -->
+  <h2>3. Backend API Contract &amp; Integration Matrix</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Endpoint</th>
+        <th>Method</th>
+        <th>Payload / Params</th>
+        <th>Response / Behavior</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>/banks</code></td>
+        <td><code>GET</code></td>
+        <td><code>city</code>, <code>blood_group</code>, <code>radius</code></td>
+        <td>List of blood banks, coordinates, and component units</td>
+      </tr>
+      <tr>
+        <td><code>/banks/&lt;id&gt;</code></td>
+        <td><code>GET</code></td>
+        <td>Bank ID</td>
+        <td>Detailed facility profile and inventory timestamp</td>
+      </tr>
+      <tr>
+        <td><code>/requests/new</code></td>
+        <td><code>POST</code></td>
+        <td><code>patient_name</code>, <code>blood_group</code>, <code>hospital</code>, <code>units</code></td>
+        <td>Creates emergency request draft and returns request ID</td>
+      </tr>
+      <tr>
+        <td><code>/requests/&lt;id&gt;/send-alerts</code></td>
+        <td><code>POST</code></td>
+        <td>CSRF Token</td>
+        <td>Dispatches matching donor emails and referral tokens</td>
+      </tr>
+      <tr>
+        <td><code>/api/ai/parse</code></td>
+        <td><code>POST</code></td>
+        <td><code>{"message": "raw text"}</code></td>
+        <td>JSON with extracted blood group, units, hospital</td>
+      </tr>
+      <tr>
+        <td><code>/bank-portal/inventory</code></td>
+        <td><code>POST</code></td>
+        <td><code>bank_id</code>, <code>blood_group</code>, <code>count</code></td>
+        <td>Appends inventory audit record and updates stock</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 4 -->
+  <h2>4. Deployment &amp; GitHub Setup Guide</h2>
+
+  <h3>Running Directly in Any Browser (Zero Setup)</h3>
+  <p>Double-click <code>frontend/index.html</code> in Windows Explorer or open it with Google Chrome, Microsoft Edge, or Firefox. The full user interface, search filters, interactive Leaflet map, and mock data engine run immediately without installation.</p>
+
+  <h3>Publishing to GitHub as an Independent Repository</h3>
+  <pre><code># 1. Open PowerShell and navigate to the frontend directory:
+cd C:\Users\DELL\.gemini\antigravity\scratch\BLOODLINK\frontend
+
+# 2. Initialize Git and stage all frontend files:
+git init
+git add .
+git commit -m "Initial commit: BLOODLINK Frontend Application"
+
+# 3. Rename branch to main:
+git branch -M main
+
+# 4. Connect to your GitHub repository and push:
+git remote add origin https://github.com/YOUR-USERNAME/bloodlink-frontend.git
+git push -u origin main</code></pre>
+
+  <h3>Deploying to Cloud Hosting (Vercel / Netlify / GitHub Pages)</h3>
+  <ul>
+    <li><strong>GitHub Pages:</strong> Enable GitHub Pages in repository settings &rarr; Source: <code>main</code> branch &rarr; Folder: <code>/ (root)</code>.</li>
+    <li><strong>Vercel / Netlify:</strong> Import the repository directly; no build commands required (Root directory: <code>/</code>, Output directory: <code>/</code>).</li>
+  </ul>
+
+  <div class="footer-note">
+    BLOODLINK Frontend Specification Document &bull; Generated for Technical Review &amp; Repository Integration
+  </div>
+
+</body>
+</html>
